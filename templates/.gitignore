@@ -6,6 +6,7 @@ build/
 temp/
 tmp/
 backup/
+install/
 
 .DS_Store
 
