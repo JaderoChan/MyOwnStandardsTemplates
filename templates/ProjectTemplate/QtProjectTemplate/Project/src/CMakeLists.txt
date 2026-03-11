@@ -12,27 +12,9 @@ configure_file(
 )
 
 # 头文件（可用于在Visual Studio IDE的项目文件树中显示头文件）
-file(GLOB_RECURSE HEADER ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+#!!! TODO：HEADER
 # 源文件
-file(
-    GLOB_RECURSE SRC
-    ${CMAKE_CURRENT_SOURCE_DIR}/app/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/filelink/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/utils/*.cpp
-)
-# 平台相关的代码
-if(WIN32)
-    file(GLOB PLATFORM_SRC ${CMAKE_CURRENT_SOURCE_DIR}/platforms/*_win.cpp)
-elseif(APPLE)
-    file(
-        GLOB PLATFORM_SRC
-        ${CMAKE_CURRENT_SOURCE_DIR}/platforms/*_mac.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/platforms/*_mac.mm
-    )
-else()
-    file(GLOB PLATFORM_SRC ${CMAKE_CURRENT_SOURCE_DIR}/platforms/*_linux.cpp)
-endif()
-list(APPEND SRC ${PLATFORM_SRC})
+#!!! TODO：SRC
 # UI文件
 file(GLOB_RECURSE UI ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
 # QRC文件
@@ -61,23 +43,8 @@ target_include_directories(
 target_link_libraries(
     ${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
-    global_hotkey::global_hotkey
     easy_translate::easy_translate
 )
-
-if(APPLE)
-    find_library(APPLICATION_SERVICES_LIBRARY ApplicationServices)
-    find_library(APP_KIT_LIBRARY AppKit)
-    find_library(COCOA_LIBRARY Cocoa)
-    find_library(SERVICE_MANAGEMENT_LIBRARY ServiceManagement)
-    target_link_libraries(
-        ${PROJECT_NAME} PRIVATE
-        ${APPLICATION_SERVICES_LIBRARY}
-        ${APP_KIT_LIBRARY}
-        ${COCOA_LIBRARY}
-        ${SERVICE_MANAGEMENT_LIBRARY}
-    )
-endif()
 
 ###############
 # 配置生成目标 #
@@ -96,10 +63,6 @@ if(WIN32)
         ${PROJECT_NAME} PROPERTIES
         WIN32_EXECUTABLE ON
     )
-endif()
-
-if(MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /Zc:__cplusplus /permissive-)
 endif()
 
 # 程序是否自动更新语言文件（开发时使用）
@@ -175,14 +138,6 @@ elseif(APPLE)
         MACOSX_PACKAGE_LOCATION "Resources/languages"
     )
     target_sources(${PROJECT_NAME} PRIVATE ${LANG_FILES})
-
-    # 脚本文件
-    file(GLOB SCRIPT_FILES ${RESOURCES_DIR}/scripts/mac/*)
-    set_source_files_properties(
-        ${SCRIPT_FILES} PROPERTIES
-        MACOSX_PACKAGE_LOCATION "Resources/scripts"
-    )
-    target_sources(${PROJECT_NAME} PRIVATE ${SCRIPT_FILES})
 else()
     # TODO
 endif()
@@ -210,6 +165,7 @@ elseif(APPLE)
 else()
     # TODO
 endif()
+
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${DEPLOYQT}
@@ -222,7 +178,7 @@ option(CREATE_DMG "Create DMG for MacOS, create-dmg is required." OFF)
 if(APPLE AND CREATE_DMG)
     add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_SOURCE_DIR}/scripts/create_dmg.sh
+        COMMAND ${SCRIPTS_DIR}/create_dmg.sh
         ${PROJECT_NAME}
         ${APP_ICON}
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}

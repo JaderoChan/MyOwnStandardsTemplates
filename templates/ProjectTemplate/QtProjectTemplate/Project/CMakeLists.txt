@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.17)
 
-project(@PROJECT_NAME@ VERSION @PROJECT_VERSION@ LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD @CPP_VERSION@)
+#!!! TODO：@PROJECT_NAME@ & @PROJECT_VERSION@
+project( VERSION  LANGUAGES CXX)
+#!!! TODO：@CPP_VERSION@
+set(CMAKE_CXX_STANDARD )
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 默认使用Release构建
@@ -10,9 +12,8 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # 查找Qt库
-#!!! Edit $COMPONENTS$
-find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS $COMPONENTS$)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS $COMPONENTS$)
+find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 ###############
 # 配置第三方库 #
@@ -32,6 +33,7 @@ FetchContent_MakeAvailable(easy_translate)
 # 设置程序信息 #
 ###############
 
+#!!! TODO：@APP_ORGANIZATION@ & @APP_ORGANIZATION_DOMAIN@ & @APP_TITLE@ & @APP_VERSION@ & @APP_AUTHOR@ & @APP_CONTACT_EMAIL@ & @APP_COPYRIGHT_TEXT@
 set(APP_ORGANIZATION "")
 set(APP_ORGANIZATION_DOMAIN "")
 set(APP_TITLE "")
@@ -48,6 +50,8 @@ set(APP_COPYRIGHT_TEXT "")
 set(CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # CMake模板文件夹
 set(CMAKE_TEMPLATE_DIR ${CMAKE_DIR}/template)
+# 脚本文件夹路径
+set(SCRIPTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/scripts)
 # 语言文件夹路径
 set(LANGUAGES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/languages)
 # 资源文件夹路径
