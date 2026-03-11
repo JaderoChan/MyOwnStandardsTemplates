@@ -13,7 +13,8 @@ int main(int argc, char* argv[])
     QApplication a(argc, argv);
     a.setOrganizationDomain(APP_ORGANIZATION_DOMAIN);
     a.setOrganizationName(APP_ORGANIZATION);
-    a.setApplicationName(APP_TITLE);
+    a.setApplicationName(EASYTR(APP_TITLE));
+    a.setApplicationDisplayName(EASYTR(APP_TITLE));
     a.setApplicationVersion(APP_VERSION);
     a.setWindowIcon(getLogoIcon());
 

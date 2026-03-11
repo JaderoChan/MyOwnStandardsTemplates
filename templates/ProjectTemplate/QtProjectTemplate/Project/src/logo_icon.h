@@ -5,4 +5,4 @@
 
 QIcon getLogoIcon();
 
-QPixmap getLogoPixmap(int extent);
+QPixmap getLogoPixmap(int extent = 1024);
