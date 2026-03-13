@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.17)
+
+#!!! TODO：@PROJECT_NAME@ & @PROJECT_VERSION@
+project( VERSION  LANGUAGES CXX)
+#!!! TODO：@CPP_VERSION@
+set(CMAKE_CXX_STANDARD )
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 默认使用Release构建
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+# 头文件（可用于在Visual Studio IDE的项目文件树中显示头文件）
+file(
+    GLOB_RECURSE HEADER
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
+)
+# 源文件
+file(
+    GLOB_RECURSE SRC
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+)
+
+set(PROJECT_SOURCE ${HEADER} ${SRC})
+
+# 配置头文件路径
+target_include_directories(
+    ${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
