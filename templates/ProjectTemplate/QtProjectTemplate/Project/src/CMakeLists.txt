@@ -12,14 +12,14 @@ configure_file(
 )
 
 # 头文件（可用于在Visual Studio IDE的项目文件树中显示头文件）
-#!!! TODO：HEADER
+#!!! TODO：HEADERS
 # 源文件
-#!!! TODO：SRC
+#!!! TODO：SRCS
 # UI文件
-file(GLOB_RECURSE UI ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
+file(GLOB_RECURSE UIS ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
 # QRC文件
 set(QRC ${RESOURCES_DIR}/app.qrc)
-set(PROJECT_SOURCE ${HEADER} ${SRC} ${UI} ${QRC})
+set(PROJECT_SOURCE ${HEADERS} ${SRCS} ${UIS} ${QRC})
 
 ###########
 # 构建程序 #

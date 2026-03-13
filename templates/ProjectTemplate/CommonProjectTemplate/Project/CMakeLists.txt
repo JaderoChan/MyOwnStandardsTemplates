@@ -13,18 +13,18 @@ endif()
 
 # 头文件（可用于在Visual Studio IDE的项目文件树中显示头文件）
 file(
-    GLOB_RECURSE HEADER
+    GLOB_RECURSE HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/*.h
     ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
 )
 # 源文件
 file(
-    GLOB_RECURSE SRC
+    GLOB_RECURSE SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 
-set(PROJECT_SOURCE ${HEADER} ${SRC})
+set(PROJECT_SOURCE ${HEADERS} ${SRCS})
 
 # 配置头文件路径
 target_include_directories(
