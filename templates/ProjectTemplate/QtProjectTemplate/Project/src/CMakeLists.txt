@@ -19,14 +19,14 @@ configure_file(
 file(GLOB_RECURSE UIS ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
 # QRC文件
 set(QRC ${RESOURCES_DIR}/app.qrc)
-set(PROJECT_SOURCE ${HEADERS} ${SRCS} ${UIS} ${QRC})
+set(PROJECT_SOURCES ${HEADERS} ${SRCS} ${UIS} ${QRC})
 
 ###########
 # 构建程序 #
 ###########
 
 qt_standard_project_setup()
-qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCE})
+qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 ###########
 # 配置依赖 #

@@ -24,7 +24,7 @@ file(
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 
-set(PROJECT_SOURCE ${HEADERS} ${SRCS})
+set(PROJECT_SOURCES ${HEADERS} ${SRCS})
 
 # 配置头文件路径
 target_include_directories(
