@@ -6,12 +6,12 @@ project( VERSION  LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD )
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 默认使用Release构建
+# 默认使用 Release 构建
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-# 查找Qt库
+# 查找 Qt 库
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
@@ -22,7 +22,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 include(FetchContent)
 set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
-# 配置Easy Translate库
+# 配置 Easy Translate 库
 FetchContent_Declare(
     easy_translate
     SOURCE_DIR ${3RDPARTY_DIR}/easy_translate
@@ -49,9 +49,9 @@ set(APP_COPYRIGHT_TEXT "")
 # 定义常用路径 #
 ###############
 
-# CMake文件夹
+# CMake 文件夹
 set(CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-# CMake模板文件夹
+# CMake 模板文件夹
 set(CMAKE_TEMPLATES_DIR ${CMAKE_DIR}/templates)
 # 脚本文件夹路径
 set(SCRIPTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/scripts)

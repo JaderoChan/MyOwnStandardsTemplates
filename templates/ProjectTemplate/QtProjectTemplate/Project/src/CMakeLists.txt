@@ -4,20 +4,20 @@ cmake_minimum_required(VERSION 3.17)
 # 收集源文件 #
 #############
 
-# 配置config头文件
+# 配置 config 头文件
 configure_file(
     ${CMAKE_TEMPLATES_DIR}/config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/include/config.h
     @ONLY
 )
 
-# 头文件（可用于在Visual Studio IDE的项目文件树中显示头文件）
+# 头文件（可用于在 Visual Studio IDE 的项目文件树中显示头文件）
 #!!! TODO：HEADERS
 # 源文件
 #!!! TODO：SRCS
-# UI文件
+# UI 文件
 file(GLOB_RECURSE UIS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
-# QRC文件
+# QRC 文件
 set(QRC ${RESOURCES_DIR}/app.qrc)
 set(PROJECT_SOURCES ${HEADERS} ${SRCS} ${UIS} ${QRC})
 
@@ -57,7 +57,7 @@ set_target_properties(
     AUTORCC ON
 )
 
-# 指定为GUI应用程序
+# 指定为 GUI 应用程序
 if(WIN32)
     set_target_properties(
         ${PROJECT_NAME} PROPERTIES
@@ -155,7 +155,7 @@ if(NOT APPLE)
     )
 endif()
 
-# Qt部署（需要保证*deployqt可见）
+# Qt 部署（需要保证 *deployqt 可见）
 if(WIN32)
     set(DEPLOYQT windeployqt)
     set(OUTPUT_SUFFIX "exe")
@@ -173,7 +173,7 @@ add_custom_command(
     $<$<PLATFORM_ID:Darwin>:-codesign=->
 )
 
-# MacOS DMG打包
+# MacOS DMG 打包
 option(CREATE_DMG "Create DMG for MacOS, create-dmg is required." OFF)
 if(APPLE AND CREATE_DMG)
     add_custom_command(
