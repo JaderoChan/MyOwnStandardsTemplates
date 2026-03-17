@@ -16,7 +16,7 @@ configure_file(
 # 源文件
 #!!! TODO：SRCS
 # UI文件
-file(GLOB_RECURSE UIS ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
+file(GLOB_RECURSE UIS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
 # QRC文件
 set(QRC ${RESOURCES_DIR}/app.qrc)
 set(PROJECT_SOURCES ${HEADERS} ${SRCS} ${UIS} ${QRC})
@@ -132,7 +132,7 @@ elseif(APPLE)
     )
 
     # 语言文件
-    file(GLOB LANG_FILES ${LANGUAGES_DIR}/*)
+    file(GLOB LANG_FILES CONFIGURE_DEPENDS ${LANGUAGES_DIR}/*)
     set_source_files_properties(
         ${LANG_FILES} PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources/languages"
@@ -150,7 +150,7 @@ endif()
 if(NOT APPLE)
     add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
         ${LANGUAGES_DIR} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/languages
     )
 endif()
