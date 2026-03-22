@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.17)
-
 #############
 # 收集源文件 #
 #############
@@ -156,17 +154,15 @@ if(NOT APPLE)
     add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-        ${LANGUAGES_DIR} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/languages
+        ${LANGUAGES_DIR} $<TARGET_FILE_DIR:${PROJECT_NAME}>/languages
     )
 endif()
 
 # Qt 部署（需要保证 *deployqt 可见）
 if(WIN32)
     set(DEPLOYQT windeployqt)
-    set(OUTPUT_SUFFIX "exe")
 elseif(APPLE)
     set(DEPLOYQT macdeployqt)
-    set(OUTPUT_SUFFIX "app")
 else()
     # TODO
 endif()
@@ -174,7 +170,7 @@ endif()
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${DEPLOYQT}
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.${OUTPUT_SUFFIX}
+    $<TARGET_FILE:${PROJECT_NAME}>
     $<$<PLATFORM_ID:Darwin>:-codesign=->
 )
 
@@ -186,6 +182,6 @@ if(APPLE AND CREATE_DMG)
         COMMAND ${SCRIPTS_DIR}/create_dmg.sh
         ${PROJECT_NAME}
         ${APP_ICON}
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
     )
 endif()

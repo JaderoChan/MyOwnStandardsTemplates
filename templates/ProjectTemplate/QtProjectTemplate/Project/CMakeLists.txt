@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.26)
 
 #!!! TODO：@PROJECT_NAME@ & @PROJECT_VERSION@
 project( VERSION  LANGUAGES CXX)
@@ -63,7 +63,7 @@ set(RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/resources)
 set(APP_ICON_DIR ${CMAKE_CURRENT_SOURCE_DIR}/icon)
 
 # 重定向目标文件输出目录
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 #############
 # 添加子目录 #
