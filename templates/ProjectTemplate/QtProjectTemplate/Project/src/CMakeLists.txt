@@ -57,6 +57,11 @@ set_target_properties(
     AUTORCC ON
 )
 
+# 如果为 MSVC 编译器，显式指定编码，防止乱码情况
+if (MSVC)
+    add_compile_options(/source-charset:utf-8 /execution-charset:utf-8)
+endif()
+
 # 指定为 GUI 应用程序
 if(WIN32)
     set_target_properties(
