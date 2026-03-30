@@ -37,7 +37,7 @@ inline void writeFileContent(const QString& filePath, const T& content, bool isA
         throw std::runtime_error("Failed to open file: " + filePath.toStdString());
 
     if constexpr (asText)
-        file.write(std::forward<T>(content).toUtf8());
+        file.write(content.toUtf8());
     else
-        file.write(std::forward<T>(content));
+        file.write(content);
 }
