@@ -158,7 +158,7 @@ if(NOT APPLE)
     )
 endif()
 
-option(DELPOYQT_AFTER_BUILD "Execute *deployqt program to install Qt dependencies after build." OFF)
+option(DEPLOYQT_AFTER_BUILD "Execute *deployqt program to install Qt dependencies after build." OFF)
 if(DEPLOYQT_AFTER_BUILD)
     # Qt 部署（需要保证 *deployqt 可见）
     if(WIN32)
