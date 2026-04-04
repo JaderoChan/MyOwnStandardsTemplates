@@ -10,9 +10,15 @@ configure_file(
 )
 
 # 头文件（可用于在 Visual Studio IDE 的项目文件树中显示头文件）
-#!!! TODO：HEADERS
+file(
+    GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
 # 源文件
-#!!! TODO：SRCS
+file(
+    GLOB_RECURSE SRCS CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 # UI 文件
 file(GLOB_RECURSE UIS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
 # QRC 文件
