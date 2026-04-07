@@ -9,11 +9,11 @@ set(MSG_PREFIX "[@LIB_MSG_PREFIX@]")
 include(GNUInstallDirs)
 
 # Check whether the project is the root project.
-if(NOT DEFINED @LIBNAME_UPPER@_IS_MASTER_PROJECT)
+if(NOT DEFINED @LIBNAME@_IS_MASTER_PROJECT)
     if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-        set(@LIBNAME_UPPER@_IS_MASTER_PROJECT ON)
+        set(@LIBNAME@_IS_MASTER_PROJECT ON)
     else()
-        set(@LIBNAME_UPPER@_IS_MASTER_PROJECT OFF)
+        set(@LIBNAME@_IS_MASTER_PROJECT OFF)
     endif()
 endif()
 
@@ -118,7 +118,7 @@ install(
 # Build Example #
 #################
 
-option(@LIBNAME_UPPER@_BUILD_EXAMPLE "Build example" ${@LIBNAME_UPPER@_IS_MASTER_PROJECT})
-if(@LIBNAME_UPPER@_BUILD_EXAMPLE)
+option(@LIBNAME@_BUILD_EXAMPLE "Build example" ${@LIBNAME@_IS_MASTER_PROJECT})
+if(@LIBNAME@_BUILD_EXAMPLE)
     add_subdirectory(example)
 endif()

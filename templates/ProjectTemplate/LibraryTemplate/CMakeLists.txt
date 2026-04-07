@@ -19,11 +19,11 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
 endif()
 
 # Check whether the project is the root project.
-if(NOT DEFINED @LIBNAME_UPPER@_IS_MASTER_PROJECT)
+if(NOT DEFINED @LIBNAME@_IS_MASTER_PROJECT)
     if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-        set(@LIBNAME_UPPER@_IS_MASTER_PROJECT ON)
+        set(@LIBNAME@_IS_MASTER_PROJECT ON)
     else()
-        set(@LIBNAME_UPPER@_IS_MASTER_PROJECT OFF)
+        set(@LIBNAME@_IS_MASTER_PROJECT OFF)
     endif()
 endif()
 
@@ -31,8 +31,8 @@ endif()
 # Options #
 ###########
 
-option(@LIBNAME_UPPER@_BUILD_SHARED "Build shared library" OFF)
-set(@LIBNAME_UPPER@_SHARED ${@LIBNAME_UPPER@_BUILD_SHARED})
+option(@LIBNAME@_BUILD_SHARED "Build shared library" OFF)
+set(@LIBNAME@_SHARED ${@LIBNAME@_BUILD_SHARED})
 
 ########################
 # Collect source files #
@@ -46,15 +46,16 @@ configure_file(
     @ONLY
 )
 
-# Export headers
-file(GLOB EXPORT_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/@LIBNAME@/*.hpp)
-list(APPEND EXPORT_HEADERS ${CONFIG_HEADER_PATH})
+# Public headers
+file(GLOB_RECURSE PUBLIC_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/@LIBNAME@/*.hpp)
+list(APPEND PUBLIC_HEADERS ${CONFIG_HEADER_PATH})
 
 # Private headers
 file(GLOB PRIVATE_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp)
 
 # Sources
 file(GLOB SRCS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+# TODO: Add other subdirectory sources.
 
 # Headers and sources related to platform
 if(WIN32)
@@ -78,16 +79,16 @@ if(PLATFORM_SRCS)
     list(APPEND SRCS ${PLATFORM_SRCS})
 endif()
 
-set(PROJECT_SOURCES ${PRIVATE_HEADERS} ${EXPORT_HEADERS} ${SRCS})
+set(PROJECT_SOURCES ${PRIVATE_HEADERS} ${PUBLIC_HEADERS} ${SRCS})
 
 #########
 # Build #
 #########
 
-if(@LIBNAME_UPPER@_BUILD_SHARED)
+if(@LIBNAME@_BUILD_SHARED)
     message(STATUS "${MSG_PREFIX} Shared library will be built.")
     add_library(${PROJECT_NAME} SHARED ${PROJECT_SOURCES})
-    target_compile_definitions(${PROJECT_NAME} PRIVATE @LIBNAME_UPPER@_BUILD_SHARED)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE @LIBNAME@_BUILD_SHARED)
 else()
     message(STATUS "${MSG_PREFIX} Static library will be built.")
     add_library(${PROJECT_NAME} STATIC ${PROJECT_SOURCES})
@@ -139,7 +140,8 @@ install(
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-install(FILES ${EXPORT_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/@LIBNAME@)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/@LIBNAME@ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CONFIG_HEADER_PATH} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/@LIBNAME@)
 install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/licenses/${PROJECT_NAME})
 
 install(
@@ -174,7 +176,7 @@ install(
 # Build Example #
 #################
 
-option(@LIBNAME_UPPER@_BUILD_EXAMPLE "Build example" ${@LIBNAME_UPPER@_IS_MASTER_PROJECT})
-if(@LIBNAME_UPPER@_BUILD_EXAMPLE)
+option(@LIBNAME@_BUILD_EXAMPLE "Build example" ${@LIBNAME@_IS_MASTER_PROJECT})
+if(@LIBNAME@_BUILD_EXAMPLE)
     add_subdirectory(example)
 endif()
