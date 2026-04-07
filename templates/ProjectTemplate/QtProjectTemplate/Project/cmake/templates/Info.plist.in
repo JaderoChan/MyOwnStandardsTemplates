@@ -31,7 +31,7 @@
     <string>@APP_VERSION@</string>
 
     <key>CFBundleCopyRight</key>
-    <string>@APP_COPYRIGHT_TEXT</string>
+    <string>@APP_COPYRIGHT_TEXT@</string>
 
     <!-- 本地化支持 -->
     <key>CFBundleLocalizations</key>
