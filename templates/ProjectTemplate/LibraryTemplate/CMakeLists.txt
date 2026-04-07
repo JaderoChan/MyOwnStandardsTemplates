@@ -27,6 +27,10 @@ if(NOT DEFINED @LIBNAME_UPPER@_IS_MASTER_PROJECT)
     endif()
 endif()
 
+###########
+# Options #
+###########
+
 option(@LIBNAME_UPPER@_BUILD_SHARED "Build shared library" OFF)
 set(@LIBNAME_UPPER@_SHARED ${@LIBNAME_UPPER@_BUILD_SHARED})
 
