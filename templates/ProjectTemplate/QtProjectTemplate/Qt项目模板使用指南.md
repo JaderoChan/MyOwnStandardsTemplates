@@ -10,7 +10,7 @@
 
 - `-name <str>`: 新项目名称。默认值为 `NewQtProject`。
 
-- `-ver <str>`：新项目默认版本号。默认值为 `0.0.1`。
+- `-ver <str>`：新项目默认版本号。默认值为 `0.1.0`。
 
   格式为 `MajorVersion.MinorVersion.PatchVersion`。
 

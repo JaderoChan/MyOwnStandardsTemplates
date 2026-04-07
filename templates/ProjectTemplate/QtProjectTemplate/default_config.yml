@@ -1,4 +1,6 @@
 organ: "JaderoChan"
 organ_domain: "io.github.jaderochan"
+ver: "0.1.0"
 author: "頔珞 JaderoChan"
 contact_email: "c_dl_cn@outlook.com"
+cppver: 17
