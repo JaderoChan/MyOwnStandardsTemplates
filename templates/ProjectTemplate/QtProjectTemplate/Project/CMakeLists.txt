@@ -41,7 +41,7 @@ set(APP_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 set(APP_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}")
 set(APP_AUTHOR "頔珞 JaderoChan")
 set(APP_CONTACT_EMAIL "c_dl_cn@outlook.com")
-set(APP_COPYRIGHT_TEXT "Copyright (C) 2026 JaderoChan")
+set(APP_COPYRIGHT_TEXT "Copyright (c) 2026 JaderoChan")
 
 ###############
 # 定义常用路径 #
