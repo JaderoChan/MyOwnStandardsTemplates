@@ -2,7 +2,7 @@
 # 收集源文件 #
 #############
 
-# 配置 config 头文件
+# 配置 config 头文件。
 configure_file(
     ${CMAKE_TEMPLATES_DIR}/config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/include/config.h
@@ -36,14 +36,14 @@ qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 # 配置依赖 #
 ###########
 
-# 配置头文件路径
+# 配置头文件路径。
 target_include_directories(
     ${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
-# 链接依赖库
+# 链接依赖库。
 target_link_libraries(
     ${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
@@ -61,12 +61,12 @@ set_target_properties(
     AUTORCC ON
 )
 
-# 如果为 MSVC 编译器，显式指定编码，防止乱码情况
-if (MSVC)
+# 如果为 MSVC 编译器，显式指定编码，防止乱码情况。
+if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
 endif()
 
-# 指定为 GUI 应用程序
+# 指定为 GUI 应用程序。
 if(WIN32)
     set_target_properties(
         ${PROJECT_NAME} PROPERTIES
@@ -74,14 +74,14 @@ if(WIN32)
     )
 endif()
 
-# 程序是否自动更新语言文件（开发时使用）
-option(UPDATE_TRANSLATIONS_FILES "Whether update the translations files. Only for dev." OFF)
+# 程序退出后自动更新语言文件的翻译ID列表。（开发时使用，用于提取翻译ID）
+option(UPDATE_TRANSLATIONS_FILES "Update the translations files. Only for dev dump Text ID list." OFF)
 target_compile_definitions(
     ${PROJECT_NAME} PRIVATE
     $<$<BOOL:${UPDATE_TRANSLATIONS_FILES}>:EASY_TRANSLATE_UPDATE_TRANSLATIONS_FILES>
 )
 
-# 配置应用资源/属性
+# 配置应用资源/属性。
 if(WIN32)
     # Windows
     set(APP_ICON ${APP_ICON_DIR}/app.ico)
@@ -155,7 +155,7 @@ endif()
 # 生成后额外命令 #
 #################
 
-# 复制语言文件至输出目录
+# 复制语言文件至输出目录。
 if(NOT APPLE)
     add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
