@@ -46,18 +46,11 @@ configure_file(
     @ONLY
 )
 
-# Public headers
-file(GLOB_RECURSE PUBLIC_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/@LIBNAME@/*.hpp)
-list(APPEND PUBLIC_HEADERS ${CONFIG_HEADER_PATH})
-
-# Private headers
-file(GLOB PRIVATE_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp)
-
 # Sources
 file(GLOB SRCS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 # TODO: Add other subdirectory sources.
 
-# Headers and sources related to platform
+# Platform sources
 if(WIN32)
     set(PLATFORM_NAME win)
 elseif(APPLE)
@@ -68,18 +61,9 @@ else()
     message(FATAL_ERROR "${MSG_PREFIX} Unsupported platform.")
 endif()
 
-file(GLOB PLATFORM_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/${PLATFORM_NAME}/*.hpp)
 file(GLOB PLATFORM_SRCS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/${PLATFORM_NAME}/*.cpp)
 
-if(PLATFORM_HEADERS)
-    list(APPEND PRIVATE_HEADERS ${PLATFORM_HEADERS})
-endif()
-
-if(PLATFORM_SRCS)
-    list(APPEND SRCS ${PLATFORM_SRCS})
-endif()
-
-set(PROJECT_SOURCES ${PRIVATE_HEADERS} ${PUBLIC_HEADERS} ${SRCS})
+list(APPEND SRCS ${PLATFORM_SRCS})
 
 #########
 # Build #
@@ -87,11 +71,11 @@ set(PROJECT_SOURCES ${PRIVATE_HEADERS} ${PUBLIC_HEADERS} ${SRCS})
 
 if(@LIBNAME@_BUILD_SHARED)
     message(STATUS "${MSG_PREFIX} Shared library will be built.")
-    add_library(${PROJECT_NAME} SHARED ${PROJECT_SOURCES})
+    add_library(${PROJECT_NAME} SHARED ${SRCS})
     target_compile_definitions(${PROJECT_NAME} PRIVATE @LIBNAME@_BUILD_SHARED)
 else()
     message(STATUS "${MSG_PREFIX} Static library will be built.")
-    add_library(${PROJECT_NAME} STATIC ${PROJECT_SOURCES})
+    add_library(${PROJECT_NAME} STATIC ${SRCS})
 endif()
 
 # Set library alias.
