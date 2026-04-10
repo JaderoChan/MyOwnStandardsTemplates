@@ -50,7 +50,6 @@ configure_file(
 file(GLOB SRCS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 # TODO: Add other subdirectory sources.
 
-# Platform sources
 if(WIN32)
     set(PLATFORM_NAME win)
 elseif(APPLE)
