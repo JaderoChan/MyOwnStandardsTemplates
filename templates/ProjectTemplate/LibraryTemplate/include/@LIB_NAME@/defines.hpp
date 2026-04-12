@@ -6,7 +6,7 @@
 #ifdef _WIN32
     #define @LIBNAME@_WIN
 #elif defined(__APPLE__)
-    #define @LIBNAME@_MAC
+    #define @LIBNAME@_APPLE
 #elif defined(__linux__)
     #define @LIBNAME@_LINUX
 #else
