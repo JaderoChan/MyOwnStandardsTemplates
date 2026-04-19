@@ -9,7 +9,7 @@ set(MSG_PREFIX "[@LIB_MSG_PREFIX@]")
 include(GNUInstallDirs)
 
 # Check whether the project is the root project.
-if(NOT DEFINED @LIBNAME@_IS_MASTER_PROJECT)
+if(NOT @LIBNAME@_IS_MASTER_PROJECT)
     if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
         set(@LIBNAME@_IS_MASTER_PROJECT ON)
     else()
