@@ -2,9 +2,9 @@ set -eu
 
 usage() {
   echo "Usage:"
-  echo "  $(basename "$0") <input.png> <output_folder>"
+  echo "  $(basename "$0") <input.png> <output_folder> [output_name]"
   echo "Example:"
-  echo "  $(basename "$0") \"/path/to/logo_1024.png\" \"/path/to/out\""
+  echo "  $(basename "$0") \"/path/to/logo_1024.png\" \"/path/to/out\" \"myicon\""
   exit 2
 }
 
@@ -14,6 +14,8 @@ usage() {
 
 SRC="$1"
 OUT_DIR="$2"
+OUT_NAME="${3-}"
+[ -z "$OUT_NAME" ] && OUT_NAME="app"
 
 # Check source file
 if [ ! -f "$SRC" ]; then
@@ -33,23 +35,24 @@ if ! mkdir -p "$OUT_DIR"; then
   exit 1
 fi
 
+echo "[INFO] Output name prefix: \"$OUT_NAME\""
 echo "[INFO] Generating PNG sizes: 16,32,64,128,256,512,1024"
 for S in 16 32 64 128 256 512 1024; do
-  if ! magick "$SRC" -resize "${S}x${S}" -filter Lanczos -strip "$OUT_DIR/app_${S}.png"; then
-    echo "[ERROR] Failed to generate app_${S}.png"
+  if ! magick "$SRC" -resize "${S}x${S}" -filter Lanczos -strip "$OUT_DIR/${OUT_NAME}_${S}.png"; then
+    echo "[ERROR] Failed to generate ${OUT_NAME}_${S}.png"
     exit 1
   fi
 done
 
 echo "[INFO] Generating ICO (16,24,32,48,64,128,256)"
-if ! magick "$SRC" -define icon:auto-resize=16,24,32,48,64,128,256 "$OUT_DIR/app.ico"; then
-  echo "[ERROR] Failed to generate app.ico"
+if ! magick "$SRC" -define icon:auto-resize=16,24,32,48,64,128,256 "$OUT_DIR/${OUT_NAME}.ico"; then
+  echo "[ERROR] Failed to generate ${OUT_NAME}.ico"
   exit 1
 fi
 
 echo "[INFO] Generating ICNS (16,32,64,128,256,512,1024)"
-if ! magick "$SRC" -define icon:auto-resize=16,32,64,128,256,512,1024 "$OUT_DIR/app.icns"; then
-  echo "[ERROR] Failed to generate app.icns"
+if ! magick "$SRC" -define icon:auto-resize=16,32,64,128,256,512,1024 "$OUT_DIR/${OUT_NAME}.icns"; then
+  echo "[ERROR] Failed to generate ${OUT_NAME}.icns"
   exit 1
 fi
 
