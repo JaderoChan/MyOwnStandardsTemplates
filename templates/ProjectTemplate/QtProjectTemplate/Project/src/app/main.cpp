@@ -3,7 +3,6 @@
 #include <easy_translate.hpp>
 
 #include <config.h>
-
 #include "logo_icon.h"
 #include "settings.h"
 
