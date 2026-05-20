@@ -87,6 +87,20 @@ if(WIN32)
     # Windows
     set(APP_ICON ${APP_ICON_DIR}/app.ico)
 
+    set(APP_MANIFEST ${CMAKE_CURRENT_BINARY_DIR}/app.manifest)
+    configure_file(
+        ${CMAKE_TEMPLATES_DIR}/app.manifest.in
+        ${APP_MANIFEST}
+        @NOLY
+    )
+
+    # 是否将 app.manifest 文件加入到资源文件中。
+    option(EMBED_APP_MANIFEST "Add the app.manifest file to the rc file." OFF)
+    if(EMBED_APP_MANIFEST)
+        # MSVC 默认会自动嵌入一个 manifest，禁用以避免与资源文件中的 RT_MANIFEST 冲突。
+        target_link_options(${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/MANIFEST:NO>)
+    endif()
+
     set(RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/app.rc)
     configure_file(
         ${CMAKE_TEMPLATES_DIR}/app.rc.in
